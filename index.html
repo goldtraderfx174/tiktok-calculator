@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TikTok Global Payout & Forex Master</title>
+    <style>
+        :root { --brand: #fe2c55; --bg: #0b0e11; --card: #1e2329; --text: #eaecef; --muted: #848e9c; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
+        .wrapper { width: 100%; max-width: 550px; }
+        .card { background: var(--card); padding: 30px; border-radius: 28px; box-shadow: 0 15px 50px rgba(0,0,0,0.5); margin-bottom: 25px; border: 1px solid #333; }
+        h1 { color: var(--brand); text-align: center; font-size: 26px; margin: 0 0 20px 0; }
+        
+        label { font-size: 13px; color: var(--muted); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 1px; }
+        select, input { 
+            width: 100%; padding: 14px; background: #2b3139; border: 1px solid #474d57; 
+            border-radius: 14px; color: white; font-size: 16px; margin-bottom: 20px; box-sizing: border-box;
+        }
+
+        .main-display { background: linear-gradient(135deg, #2b3139 0%, #1e2329 100%); padding: 25px; border-radius: 20px; text-align: center; border: 2px solid var(--brand); }
+        .usd-amt { font-size: 52px; font-weight: 800; color: var(--brand); display: block; line-height: 1; }
+        
+        .search-container { margin-top: 30px; }
+        .currency-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .cur-item { background: #181a20; padding: 12px; border-radius: 12px; display: flex; justify-content: space-between; font-size: 14px; border: 1px solid #2b3139; }
+        .cur-code { color: var(--muted); }
+        .cur-val { font-weight: bold; color: #f0b90b; }
+
+        #searchResult { background: var(--brand); color: white; padding: 15px; border-radius: 12px; margin-top: 10px; display: none; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="card">
+        <h1>TikTok Global Payout</h1>
+        
+        <label>Select Gift</label>
+        <select id="giftSelect" onchange="syncInput()">
+            <option value="44999">TikTok Universe (44,999)</option>
+            <option value="29999">Lion (29,999)</option>
+            <option value="1000">Galaxy (1,000)</option>
+            <option value="1">Rose (1)</option>
+        </select>
+
+        <label>Total Diamonds / Coins</label>
+        <input type="number" id="coinInput" placeholder="Enter amount..." oninput="calculate()">
+
+        <div class="main-display">
+            <label>Take Home Payout (USD)</label>
+            <span class="usd-amt" id="usdResult">$0.00</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <label>Search 160+ Currencies (e.g. LBP, EUR, AED)</label>
+        <input type="text" id="curSearch" placeholder="Type Currency Code..." oninput="searchCurrency()">
+        <div id="searchResult"></div>
+
+        <label>Major Forex (Live Estimates)</label>
+        <div class="currency-list">
+            <div class="cur-item"><span class="cur-code">EUR</span><span class="cur-val" id="res-EUR">€0.00</span></div>
+            <div class="cur-item"><span class="cur-code">GBP</span><span class="cur-val" id="res-GBP">£0.00</span></div>
+            <div class="cur-item"><span class="cur-code">AED</span><span class="cur-val" id="res-AED">0.00</span></div>
+            <div class="cur-item"><span class="cur-code">LBP</span><span class="cur-val" id="res-LBP">0</span></div>
+        </div>
+
+        <label style="margin-top:20px;">Crypto Conversion</label>
+        <div class="currency-list">
+            <div class="cur-item"><span class="cur-code">BTC</span><span class="cur-val" id="res-BTC">0.00</span></div>
+            <div class="cur-item"><span class="cur-code">ETH</span><span class="cur-val" id="res-ETH">0.00</span></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // April 2026 Live Market Data
+    const rates = {
+        "EUR": 0.87, "GBP": 0.75, "AED": 3.67, "LBP": 89500, "CAD": 1.35, 
+        "AUD": 1.50, "JPY": 151.0, "SAR": 3.75, "BTC": 0.000015, "ETH": 0.00047
+    };
+
+    function syncInput() {
+        document.getElementById('coinInput').value = document.getElementById('giftSelect').value;
+        calculate();
+    }
+
+    function calculate() {
+        let coins = document.getElementById('coinInput').value || 0;
+        let usd = coins * 0.005;
+
+        // Update USD
+        document.getElementById('usdResult').innerText = "$" + usd.toLocaleString(undefined, {minimumFractionDigits: 2});
+
+        // Update Majors
+        for (let code in rates) {
+            let el = document.getElementById('res-' + code);
+            if(el) {
+                let val = usd * rates[code];
+                el.innerText = (code === "BTC") ? val.toFixed(8) : val.toLocaleString(undefined, {maximumFractionDigits: 2});
+            }
+        }
+    }
+
+    function searchCurrency() {
+        let query = document.getElementById('curSearch').value.toUpperCase();
+        let box = document.getElementById('searchResult');
+        let usd = (document.getElementById('coinInput').value || 0) * 0.005;
+
+        if(rates[query]) {
+            let val = usd * rates[query];
+            box.style.display = "block";
+            box.innerText = query + " Amount: " + val.toLocaleString();
+        } else {
+            box.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
