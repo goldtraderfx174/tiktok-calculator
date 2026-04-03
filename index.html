@@ -1,81 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>TikTok Global Payout & Forex Master</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Global Revenue Master</title>
     <style>
         :root { --brand: #fe2c55; --bg: #0b0e11; --card: #1e2329; --text: #eaecef; --muted: #848e9c; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
-        .wrapper { width: 100%; max-width: 550px; }
-        .card { background: var(--card); padding: 30px; border-radius: 28px; box-shadow: 0 15px 50px rgba(0,0,0,0.5); margin-bottom: 25px; border: 1px solid #333; }
-        h1 { color: var(--brand); text-align: center; font-size: 26px; margin: 0 0 20px 0; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; }
+        .wrapper { width: 100%; max-width: 500px; }
+        .card { background: var(--card); padding: 20px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 20px; border: 1px solid #333; }
+        h1 { color: var(--brand); text-align: center; font-size: 22px; margin: 10px 0; }
         
-        label { font-size: 13px; color: var(--muted); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 1px; }
-        select, input { 
-            width: 100%; padding: 14px; background: #2b3139; border: 1px solid #474d57; 
-            border-radius: 14px; color: white; font-size: 16px; margin-bottom: 20px; box-sizing: border-box;
-        }
+        label { font-size: 11px; color: var(--muted); margin-bottom: 5px; display: block; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+        select, input { width: 100%; padding: 12px; background: #2b3139; border: 1px solid #474d57; border-radius: 12px; color: white; font-size: 16px; margin-bottom: 15px; box-sizing: border-box; outline: none; }
 
-        .main-display { background: linear-gradient(135deg, #2b3139 0%, #1e2329 100%); padding: 25px; border-radius: 20px; text-align: center; border: 2px solid var(--brand); }
-        .usd-amt { font-size: 52px; font-weight: 800; color: var(--brand); display: block; line-height: 1; }
+        /* RESULT BOXES */
+        .result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .res-box { padding: 15px; border-radius: 16px; text-align: center; border: 1px solid #444; }
+        .sender-box { background: #2b1d21; border-color: #fe2c5533; }
+        .creator-box { background: #1d2b21; border-color: #25d366; border-width: 2px; }
         
-        .search-container { margin-top: 30px; }
-        .currency-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
-        .cur-item { background: #181a20; padding: 12px; border-radius: 12px; display: flex; justify-content: space-between; font-size: 14px; border: 1px solid #2b3139; }
-        .cur-code { color: var(--muted); }
+        .val { font-size: 24px; font-weight: 800; display: block; }
+        .sender-val { color: #ff708d; }
+        .creator-val { color: #25d366; }
+        .box-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+
+        .tax-tag { text-align: center; background: #333; padding: 6px; border-radius: 20px; font-size: 11px; margin-bottom: 15px; color: #ffcc00; font-weight: bold; }
+        .info-note { font-size: 10px; color: var(--muted); text-align: center; line-height: 1.4; border-top: 1px solid #333; padding-top: 10px; }
+
+        /* CURRENCY LIST */
+        .currency-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .cur-item { background: #181a20; padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; font-size: 13px; border: 1px solid #2b3139; }
         .cur-val { font-weight: bold; color: #f0b90b; }
-
-        #searchResult { background: var(--brand); color: white; padding: 15px; border-radius: 12px; margin-top: 10px; display: none; text-align: center; font-weight: bold; }
+        #searchResult { background: var(--brand); color: white; padding: 12px; border-radius: 12px; margin: 10px 0; display: none; text-align: center; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
     <div class="card">
-        <h1>TikTok Global Payout</h1>
+        <h1>TikTok Revenue Pro</h1>
         
-        <label>Select Gift</label>
+        <label>Select Gift (Cost in Coins)</label>
         <select id="giftSelect" onchange="syncInput()">
-            <option value="44999">TikTok Universe (44,999)</option>
-            <option value="29999">Lion (29,999)</option>
-            <option value="1000">Galaxy (1,000)</option>
-            <option value="1">Rose (1)</option>
+            <option value="44999">TikTok Universe (44,999 Coins)</option>
+            <option value="29999">Lion (29,999 Coins)</option>
+            <option value="15000">Planet (15,000 Coins)</option>
+            <option value="1000">Galaxy (1,000 Coins)</option>
+            <option value="1">Rose (1 Coin)</option>
         </select>
 
-        <label>Total Diamonds / Coins</label>
-        <input type="number" id="coinInput" placeholder="Enter amount..." oninput="calculate()">
+        <label>Total Coins / Diamonds</label>
+        <input type="number" id="coinInput" placeholder="Ex: 5000" oninput="calculate()">
 
-        <div class="main-display">
-            <label>Take Home Payout (USD)</label>
-            <span class="usd-amt" id="usdResult">$0.00</span>
+        <div class="tax-tag">⚠️ TikTok Platform Fee: 50%</div>
+
+        <div class="result-row">
+            <div class="res-box sender-box">
+                <span class="box-lbl">Fan Pays (USD)</span>
+                <span class="val sender-val" id="senderUSD">$0.00</span>
+            </div>
+            <div class="res-box creator-box">
+                <span class="box-lbl">Creator Gets (USD)</span>
+                <span class="val creator-val" id="creatorUSD">$0.00</span>
+            </div>
         </div>
+        
+        <p class="info-note">
+            <b>The Math:</b> Fans buy 100 Coins for ~$1.50. TikTok keeps half. Creator gets 50 Diamonds, which equals $0.25 cash.
+        </p>
     </div>
 
     <div class="card">
-        <label>Search 160+ Currencies (e.g. LBP, EUR, AED)</label>
-        <input type="text" id="curSearch" placeholder="Type Currency Code..." oninput="searchCurrency()">
+        <label>Pick Your Country</label>
+        <select id="countrySelect" onchange="searchByCountry()">
+            <option value="">-- Choose Country --</option>
+            <option value="CHF">Switzerland (CHF)</option>
+            <option value="AED">UAE (AED)</option>
+            <option value="SAR">Saudi Arabia (SAR)</option>
+            <option value="EUR">France/Germany (EUR)</option>
+            <option value="JOD">Jordan (JOD)</option>
+            <option value="LBP">Lebanon (LBP)</option>
+        </select>
+
+        <label>Or Search Currency Code (Ex: TRY, CAD, KWD)</label>
+        <input type="text" id="curSearch" placeholder="Type code..." oninput="searchCurrency()">
         <div id="searchResult"></div>
 
-        <label>Major Forex (Live Estimates)</label>
+        <label>Global Market (Creator Payout)</label>
         <div class="currency-list">
-            <div class="cur-item"><span class="cur-code">EUR</span><span class="cur-val" id="res-EUR">€0.00</span></div>
-            <div class="cur-item"><span class="cur-code">GBP</span><span class="cur-val" id="res-GBP">£0.00</span></div>
-            <div class="cur-item"><span class="cur-code">AED</span><span class="cur-val" id="res-AED">0.00</span></div>
-            <div class="cur-item"><span class="cur-code">LBP</span><span class="cur-val" id="res-LBP">0</span></div>
+            <div class="cur-item"><span>EUR</span><span class="cur-val" id="res-EUR">0</span></div>
+            <div class="cur-item"><span>GBP</span><span class="cur-val" id="res-GBP">0</span></div>
+            <div class="cur-item"><span>JPY</span><span class="cur-val" id="res-JPY">0</span></div>
+            <div class="cur-item"><span>CAD</span><span class="cur-val" id="res-CAD">0</span></div>
         </div>
 
-        <label style="margin-top:20px;">Crypto Conversion</label>
+        <label style="margin-top:15px;">Crypto Balance</label>
         <div class="currency-list">
-            <div class="cur-item"><span class="cur-code">BTC</span><span class="cur-val" id="res-BTC">0.00</span></div>
-            <div class="cur-item"><span class="cur-code">ETH</span><span class="cur-val" id="res-ETH">0.00</span></div>
+            <div class="cur-item"><span>BTC</span><span class="cur-val" id="res-BTC">0</span></div>
+            <div class="cur-item"><span>ETH</span><span class="cur-val" id="res-ETH">0</span></div>
         </div>
     </div>
 </div>
 
 <script>
-    // April 2026 Live Market Data
+    // Rates for April 2026
     const rates = {
-        "EUR": 0.87, "GBP": 0.75, "AED": 3.67, "LBP": 89500, "CAD": 1.35, 
-        "AUD": 1.50, "JPY": 151.0, "SAR": 3.75, "BTC": 0.000015, "ETH": 0.00047
+        "EUR": 0.88, "GBP": 0.76, "JPY": 152.4, "CAD": 1.36, "AED": 3.67, 
+        "LBP": 89500, "CHF": 0.91, "SAR": 3.75, "TRY": 32.5, "JOD": 0.71,
+        "BTC": 0.000014, "ETH": 0.00045
     };
 
     function syncInput() {
@@ -85,35 +118,41 @@
 
     function calculate() {
         let coins = document.getElementById('coinInput').value || 0;
-        let usd = coins * 0.005;
+        let senderVal = coins * 0.015; // Fan cost
+        let creatorVal = coins * 0.005; // Final Cash Payout
 
-        // Update USD
-        document.getElementById('usdResult').innerText = "$" + usd.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('senderUSD').innerText = "$" + senderVal.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('creatorUSD').innerText = "$" + creatorVal.toLocaleString(undefined, {minimumFractionDigits: 2});
 
-        // Update Majors
         for (let code in rates) {
             let el = document.getElementById('res-' + code);
             if(el) {
-                let val = usd * rates[code];
-                el.innerText = (code === "BTC") ? val.toFixed(8) : val.toLocaleString(undefined, {maximumFractionDigits: 2});
+                let val = creatorVal * rates[code];
+                el.innerText = (code === "BTC") ? val.toFixed(7) : val.toLocaleString(undefined, {maximumFractionDigits: 2});
             }
         }
+        searchCurrency();
     }
 
     function searchCurrency() {
         let query = document.getElementById('curSearch').value.toUpperCase();
         let box = document.getElementById('searchResult');
-        let usd = (document.getElementById('coinInput').value || 0) * 0.005;
+        let creatorVal = (document.getElementById('coinInput').value || 0) * 0.005;
 
-        if(rates[query]) {
-            let val = usd * rates[query];
+        if(rates[query] && query !== "") {
             box.style.display = "block";
-            box.innerText = query + " Amount: " + val.toLocaleString();
-        } else {
-            box.style.display = "none";
+            box.innerText = query + " Payout: " + (creatorVal * rates[query]).toLocaleString();
+        } else { box.style.display = "none"; }
+    }
+
+    function searchByCountry() {
+        let val = document.getElementById('countrySelect').value;
+        if(val) {
+            document.getElementById('curSearch').value = val;
+            searchCurrency();
         }
     }
 </script>
-
 </body>
+</html>
 </html>
